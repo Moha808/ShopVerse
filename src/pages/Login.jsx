@@ -41,9 +41,11 @@ const Login = () => {
 
   const handleGoogle = async () => {
     try {
-      await loginWithGoogle();
-      toast.success("Welcome!");
-      navigate("/");
+      const result = await loginWithGoogle();
+      if (result) {
+        toast.success("Welcome!");
+        navigate("/");
+      }
     } catch {
       toast.error("Google sign-in failed");
     }
@@ -88,7 +90,10 @@ const Login = () => {
               <div className="relative">
                 <HiOutlineMail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400" />
                 <input
+                  id="email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
@@ -104,7 +109,10 @@ const Login = () => {
               <div className="relative">
                 <HiOutlineLockClosed className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400" />
                 <input
+                  id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"

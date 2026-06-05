@@ -292,3 +292,34 @@ img[src=""] {
 main {
   animation: fadeIn 0.3s ease-out;
 }
+
+/* ===== Mobile Fixes ===== */
+
+/* Prevent iOS Safari from zooming in on input focus (triggers at < 16px) */
+@media screen and (max-width: 767px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Ensure touch targets are at least 44px (Apple HIG recommendation) */
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+  }
+}
+
+/* Fix for mobile viewport height (accounts for mobile browser chrome) */
+@supports (height: 100dvh) {
+  .min-h-screen {
+    min-height: 100dvh;
+  }
+}

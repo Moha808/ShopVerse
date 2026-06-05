@@ -5,6 +5,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   sendPasswordResetEmail,
   sendEmailVerification,
   updateProfile,
@@ -69,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     return result.user;
   };
 
-  // Google sign-in
+  // Google sign-in — always use popup to avoid Safari ITP redirect issues
   const loginWithGoogle = async () => {
     const result = await signInWithPopup(auth, googleProvider);
     // Create profile if first login
