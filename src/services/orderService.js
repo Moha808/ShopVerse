@@ -34,12 +34,14 @@ export const getUserOrders = async (userId) => {
   try {
     const q = query(
       collection(db, COLLECTION),
-      where("userId", "==", userId),
-      orderBy("createdAt", "desc"),
+      where("userId", "==", userId)
     );
     const snapshot = await getDocs(q);
-    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  } catch {
+    const orders = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    // Sort descending by createdAt in JavaScript to avoid Firestore composite index requirement
+    return orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } catch (error) {
+    console.error("Error fetching user orders:", error);
     return [];
   }
 };
