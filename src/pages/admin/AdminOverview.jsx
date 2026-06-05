@@ -100,7 +100,7 @@ const AdminOverview = () => {
     },
     {
       label: "Pending Orders",
-      value: orders.filter((o) => o.status === "pending").length,
+      value: orders.filter((o) => o.status === "pending" || o.status === "processing").length,
       icon: HiOutlineUsers,
       color: "bg-amber-100 text-amber-600",
     },
